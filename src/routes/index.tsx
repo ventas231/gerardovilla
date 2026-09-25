@@ -198,14 +198,14 @@ function Landing() {
             <AmazonMark className="shrink-0 text-[0.95rem] font-extrabold text-foreground/90 sm:text-[1.15rem]" />
           </div>
 
-          <h1 className="mx-auto mt-8 max-w-6xl text-[clamp(1.95rem,8.3vw,5.4rem)] leading-[0.92] uppercase">
+          <h1 className="mx-auto mt-8 max-w-7xl text-[clamp(1.95rem,8.3vw,5.4rem)] leading-[0.92] uppercase">
             Un grupo cerrado de sellers va a probar esto
             <span className="block text-gold-light">antes que nadie</span>
           </h1>
 
           <div className="gold-rule mx-auto mt-9 w-40 opacity-50" />
 
-          <p className="mx-auto mt-8 max-w-3xl text-[0.98rem] leading-relaxed text-muted-foreground sm:text-base">
+          <p className="mx-auto mt-8 max-w-4xl text-[0.98rem] leading-relaxed text-muted-foreground sm:text-base">
             <span className="font-semibold text-gold">Gerardo Villa</span> vende en Amazon desde
             2019 y acumula más de $4.6M USD en ventas. Está preparando un lanzamiento no público de
             herramientas de inteligencia artificial para PPC, listings e inventario, y abre un cupo
