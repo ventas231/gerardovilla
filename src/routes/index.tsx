@@ -36,6 +36,31 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="eyebrow">{children}</p>;
 }
 
+function Sparkle({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M12 0c.7 6.9 3.2 9.5 12 12-8.8 2.5-11.3 5.1-12 12-.7-6.9-3.2-9.5-12-12C8.8 9.5 11.3 6.9 12 0Z" />
+    </svg>
+  );
+}
+
+function AmazonMark({ className = "" }: { className?: string }) {
+  return (
+    <span className={"inline-flex flex-col items-center leading-none " + className}>
+      <span className="font-sans font-bold tracking-[-0.035em]">amazon</span>
+      <svg viewBox="0 0 100 11" className="mt-[0.1em] w-[105%]" fill="none" aria-hidden="true">
+        <path
+          d="M3 3.4C24 9.6 76 9.6 92 3.4"
+          stroke="currentColor"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+        />
+        <path d="M85 0.4l13 1.8-8.4 7.2z" fill="currentColor" />
+      </svg>
+    </span>
+  );
+}
+
 function Field({
   label,
   hint,
@@ -161,21 +186,32 @@ function Landing() {
     <main className="min-h-screen bg-background text-foreground">
       <div className="pointer-events-none fixed inset-x-0 top-0 h-[420px] bg-[radial-gradient(60%_100%_at_50%_0%,color-mix(in_oklab,var(--gold)_16%,transparent),transparent)]" />
 
-      <div className="relative mx-auto w-full max-w-3xl px-5 pb-20 pt-16 sm:px-8 sm:pt-24">
+      <div className="relative mx-auto w-full max-w-6xl px-5 pb-20 pt-14 sm:px-8 sm:pt-20 lg:px-14">
         {/* Encabezado */}
         <header className="text-center">
-          <span className="eyebrow inline-block rounded-full border border-gold/35 px-4 py-2">
-            Acceso solo por invitación
-          </span>
-          <h1 className="mt-7 text-[2.1rem] leading-[1.12] sm:text-5xl sm:leading-[1.08]">
-            Un grupo cerrado de sellers va a probar esto antes que nadie
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
+            <Sparkle className="h-3.5 w-3.5 shrink-0 text-gold" />
+            <span className="eyebrow rounded-full border border-gold/35 bg-surface/40 px-4 py-2">
+              Acceso solo por invitación
+            </span>
+            <span className="hidden h-4 w-px bg-gold/25 sm:block" />
+            <AmazonMark className="shrink-0 text-[0.85rem] text-foreground/90 sm:text-[1rem]" />
+          </div>
+
+          <h1 className="mx-auto mt-8 max-w-5xl text-[clamp(1.95rem,8.3vw,5.4rem)] leading-[0.92] uppercase">
+            Un grupo cerrado de sellers va a probar esto
+            <span className="block text-gold-light">antes que nadie</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-[0.98rem] leading-relaxed text-muted-foreground">
-            Gerardo Villa vende en Amazon desde 2019 y acumula más de $4.6M USD en ventas. Está
-            preparando un lanzamiento no público de herramientas de inteligencia artificial para
-            PPC, listings e inventario, y abre un cupo reducido para probarlas primero.
+
+          <div className="gold-rule mx-auto mt-9 w-40 opacity-50" />
+
+          <p className="mx-auto mt-8 max-w-2xl text-[0.98rem] leading-relaxed text-muted-foreground sm:text-base">
+            <span className="font-semibold text-gold">Gerardo Villa</span> vende en Amazon desde
+            2019 y acumula más de $4.6M USD en ventas. Está preparando un lanzamiento no público de
+            herramientas de inteligencia artificial para PPC, listings e inventario, y abre un cupo
+            reducido para probarlas primero.
           </p>
-          <a href="#aplicar" className="btn-gold mt-9">
+          <a href="#aplicar" className="btn-gold mt-10">
             Aplicar al grupo beta →
           </a>
         </header>
@@ -202,7 +238,7 @@ function Landing() {
         <section className="mt-16">
           <Eyebrow>Qué incluye el acceso</Eyebrow>
           <h2 className="mt-3 text-2xl sm:text-3xl">Las herramientas que vas a probar</h2>
-          <div className="mt-7 space-y-3">
+          <div className="mt-7 grid gap-3 lg:grid-cols-2">
             {[
               {
                 t: "Optimización de PPC con IA",
@@ -221,7 +257,10 @@ function Landing() {
                 d: "Sin costo mientras dure la fase beta cerrada.",
               },
             ].map((item, i) => (
-              <div key={item.t} className="panel flex gap-5 p-6">
+              <div
+                key={item.t}
+                className={"panel flex gap-5 p-6" + (i === 3 ? " lg:col-span-2" : "")}
+              >
                 <span className="font-mono text-sm text-gold/70">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -270,7 +309,7 @@ function Landing() {
 
         {/* Formulario */}
         <section id="aplicar" className="mt-16 scroll-mt-8">
-          <div className="panel p-6 sm:p-10">
+          <div className="panel mx-auto max-w-5xl p-6 sm:p-10">
             <Eyebrow>Aplicación</Eyebrow>
             <h2 className="mt-3 text-2xl sm:text-3xl">Cuéntanos de tu operación</h2>
 
