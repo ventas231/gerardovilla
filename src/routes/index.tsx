@@ -361,7 +361,10 @@ function Landing() {
                   </div>
                 ) : (
                   <>
-                    <Field label="Productos activos">
+                    <Field
+                      label="¿Cuántos productos tienes activos?"
+                      hint="Los que estás vendiendo ahora mismo en Amazon."
+                    >
                       <Choice
                         name="productos_activos"
                         options={PRODUCTOS}
