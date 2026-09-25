@@ -247,7 +247,7 @@ function Landing() {
         <section className="mt-16">
           <Eyebrow>Qué incluye el acceso</Eyebrow>
           <h2 className="mt-3 text-2xl sm:text-3xl">Las herramientas que vas a probar</h2>
-          <div className="mt-7 space-y-3">
+          <div className="mt-7 grid gap-3 lg:grid-cols-2">
             {[
               {
                 t: "Optimización de PPC con IA",
@@ -266,7 +266,10 @@ function Landing() {
                 d: "Sin costo mientras dure la fase beta cerrada.",
               },
             ].map((item, i) => (
-              <div key={item.t} className="panel flex gap-5 p-6">
+              <div
+                key={item.t}
+                className={"panel flex gap-5 p-6" + (i === 3 ? " lg:col-span-2" : "")}
+              >
                 <span className="font-mono text-sm text-gold/70">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -315,7 +318,7 @@ function Landing() {
 
         {/* Formulario */}
         <section id="aplicar" className="mt-16 scroll-mt-8">
-          <div className="panel p-6 sm:p-10">
+          <div className="panel mx-auto max-w-5xl p-6 sm:p-10">
             <Eyebrow>Aplicación</Eyebrow>
             <h2 className="mt-3 text-2xl sm:text-3xl">Cuéntanos de tu operación</h2>
 
