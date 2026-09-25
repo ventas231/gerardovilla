@@ -388,7 +388,7 @@ function Landing() {
                     <Field label="¿Tienes Claude y ya lo usas?">
                       <Choice
                         name="tiene_claude"
-                        options={["Sí, lo uso", "Lo tengo, no lo uso", "No tengo"]}
+                        options={["Sí, lo uso", "Lo tengo, no lo uso", "No, pero lo contrataría", "No tengo"]}
                         value={form.tiene_claude}
                         onChange={(v) => set("tiene_claude", v)}
                       />
