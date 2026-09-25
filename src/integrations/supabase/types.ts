@@ -14,7 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      beta_applications: {
+        Row: {
+          campanas_ppc: string | null
+          comparte_resena: string | null
+          corre_ppc: string | null
+          correo: string
+          created_at: string
+          id: string
+          inversion_mensual: string | null
+          marca: string | null
+          marketplaces: string | null
+          nombre: string
+          productos_activos: string | null
+          telefono: string
+          tiene_claude: string | null
+          tiene_helium10: string | null
+          vende_amazon: string
+        }
+        Insert: {
+          campanas_ppc?: string | null
+          comparte_resena?: string | null
+          corre_ppc?: string | null
+          correo: string
+          created_at?: string
+          id?: string
+          inversion_mensual?: string | null
+          marca?: string | null
+          marketplaces?: string | null
+          nombre: string
+          productos_activos?: string | null
+          telefono: string
+          tiene_claude?: string | null
+          tiene_helium10?: string | null
+          vende_amazon: string
+        }
+        Update: {
+          campanas_ppc?: string | null
+          comparte_resena?: string | null
+          corre_ppc?: string | null
+          correo?: string
+          created_at?: string
+          id?: string
+          inversion_mensual?: string | null
+          marca?: string | null
+          marketplaces?: string | null
+          nombre?: string
+          productos_activos?: string | null
+          telefono?: string
+          tiene_claude?: string | null
+          tiene_helium10?: string | null
+          vende_amazon?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
