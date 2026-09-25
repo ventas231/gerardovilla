@@ -47,7 +47,7 @@ function Sparkle({ className }: { className?: string }) {
 function AmazonMark({ className = "" }: { className?: string }) {
   return (
     <span className={"inline-flex flex-col items-center leading-none " + className}>
-      <span className="font-sans font-bold tracking-[-0.035em]">amazon</span>
+      <span className="font-sans font-extrabold tracking-[-0.035em]">amazon</span>
       <svg viewBox="0 0 100 11" className="mt-[0.1em] w-[105%]" fill="none" aria-hidden="true">
         <path
           d="M3 3.4C24 9.6 76 9.6 92 3.4"
@@ -184,9 +184,9 @@ function Landing() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="pointer-events-none fixed inset-x-0 top-0 h-[420px] bg-[radial-gradient(60%_100%_at_50%_0%,color-mix(in_oklab,var(--gold)_16%,transparent),transparent)]" />
+      <div className="pointer-events-none fixed inset-x-0 top-0 h-[520px] bg-[radial-gradient(70%_100%_at_50%_0%,color-mix(in_oklab,var(--gold)_20%,transparent),transparent)]" />
 
-      <div className="relative mx-auto w-full max-w-6xl px-5 pb-20 pt-14 sm:px-8 sm:pt-20 lg:px-14">
+      <div className="relative mx-auto w-full max-w-[1440px] px-4 pb-20 pt-14 sm:px-6 sm:pt-20 lg:px-10">
         {/* Encabezado */}
         <header className="text-center">
           <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
@@ -195,17 +195,17 @@ function Landing() {
               Acceso solo por invitación
             </span>
             <span className="hidden h-4 w-px bg-gold/25 sm:block" />
-            <AmazonMark className="shrink-0 text-[0.85rem] text-foreground/90 sm:text-[1rem]" />
+            <AmazonMark className="shrink-0 text-[0.95rem] font-extrabold text-foreground/90 sm:text-[1.15rem]" />
           </div>
 
-          <h1 className="mx-auto mt-8 max-w-5xl text-[clamp(1.95rem,8.3vw,5.4rem)] leading-[0.92] uppercase">
+          <h1 className="mx-auto mt-8 max-w-7xl text-[clamp(1.95rem,8.3vw,5.4rem)] leading-[0.92] uppercase">
             Un grupo cerrado de sellers va a probar esto
             <span className="block text-gold-light">antes que nadie</span>
           </h1>
 
           <div className="gold-rule mx-auto mt-9 w-40 opacity-50" />
 
-          <p className="mx-auto mt-8 max-w-2xl text-[0.98rem] leading-relaxed text-muted-foreground sm:text-base">
+          <p className="mx-auto mt-8 max-w-4xl text-[0.98rem] leading-relaxed text-muted-foreground sm:text-base">
             <span className="font-semibold text-gold">Gerardo Villa</span> vende en Amazon desde
             2019 y acumula más de $4.6M USD en ventas. Está preparando un lanzamiento no público de
             herramientas de inteligencia artificial para PPC, listings e inventario, y abre un cupo
@@ -309,7 +309,7 @@ function Landing() {
 
         {/* Formulario */}
         <section id="aplicar" className="mt-16 scroll-mt-8">
-          <div className="panel mx-auto max-w-5xl p-6 sm:p-10">
+          <div className="panel mx-auto max-w-6xl p-6 sm:p-10">
             <Eyebrow>Aplicación</Eyebrow>
             <h2 className="mt-3 text-2xl sm:text-3xl">Cuéntanos de tu operación</h2>
 
