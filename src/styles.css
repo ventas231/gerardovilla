@@ -4,6 +4,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --shadow-gold: 0 18px 50px -24px color-mix(in oklab, var(--gold) 45%, transparent);
+  --shadow-gold-sm: 0 10px 30px -18px color-mix(in oklab, var(--gold) 40%, transparent);
+}
+
+
 /*
  * Design system definition.
  *
