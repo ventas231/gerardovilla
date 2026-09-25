@@ -36,6 +36,40 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="eyebrow">{children}</p>;
 }
 
+function Sparkle({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M12 0c.7 6.9 3.2 9.5 12 12-8.8 2.5-11.3 5.1-12 12-.7-6.9-3.2-9.5-12-12C8.8 9.5 11.3 6.9 12 0Z" />
+    </svg>
+  );
+}
+
+function AmazonMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 120 34" className={className} role="img" aria-label="Amazon">
+      <text
+        x="2"
+        y="19"
+        fontFamily="Manrope, sans-serif"
+        fontSize="21"
+        fontWeight="700"
+        letterSpacing="-0.6"
+        fill="currentColor"
+      >
+        amazon
+      </text>
+      <path
+        d="M6 24.5C26 33 82 33 104 24"
+        stroke="currentColor"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        fill="none"
+      />
+      <path d="M98 19.5l14 1.5-9.5 8z" fill="currentColor" />
+    </svg>
+  );
+}
+
 function Field({
   label,
   hint,
@@ -161,21 +195,32 @@ function Landing() {
     <main className="min-h-screen bg-background text-foreground">
       <div className="pointer-events-none fixed inset-x-0 top-0 h-[420px] bg-[radial-gradient(60%_100%_at_50%_0%,color-mix(in_oklab,var(--gold)_16%,transparent),transparent)]" />
 
-      <div className="relative mx-auto w-full max-w-3xl px-5 pb-20 pt-16 sm:px-8 sm:pt-24">
+      <div className="relative mx-auto w-full max-w-6xl px-5 pb-20 pt-14 sm:px-8 sm:pt-20 lg:px-14">
         {/* Encabezado */}
         <header className="text-center">
-          <span className="eyebrow inline-block rounded-full border border-gold/35 px-4 py-2">
-            Acceso solo por invitación
-          </span>
-          <h1 className="mt-7 text-[2.1rem] leading-[1.12] sm:text-5xl sm:leading-[1.08]">
-            Un grupo cerrado de sellers va a probar esto antes que nadie
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
+            <Sparkle className="h-3.5 w-3.5 shrink-0 text-gold" />
+            <span className="eyebrow rounded-full border border-gold/35 bg-surface/40 px-4 py-2">
+              Acceso solo por invitación
+            </span>
+            <span className="hidden h-4 w-px bg-gold/25 sm:block" />
+            <AmazonMark className="h-[15px] w-auto shrink-0 text-foreground/90" />
+          </div>
+
+          <h1 className="mx-auto mt-8 max-w-5xl text-[clamp(1.95rem,8.3vw,5.4rem)] leading-[0.92] uppercase">
+            Un grupo cerrado de sellers va a probar esto{" "}
+            <span className="text-gold-light">antes que nadie</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-[0.98rem] leading-relaxed text-muted-foreground">
-            Gerardo Villa vende en Amazon desde 2019 y acumula más de $4.6M USD en ventas. Está
-            preparando un lanzamiento no público de herramientas de inteligencia artificial para
-            PPC, listings e inventario, y abre un cupo reducido para probarlas primero.
+
+          <div className="gold-rule mx-auto mt-9 w-40 opacity-50" />
+
+          <p className="mx-auto mt-8 max-w-2xl text-[0.98rem] leading-relaxed text-muted-foreground sm:text-base">
+            <span className="font-semibold text-gold">Gerardo Villa</span> vende en Amazon desde
+            2019 y acumula más de $4.6M USD en ventas. Está preparando un lanzamiento no público de
+            herramientas de inteligencia artificial para PPC, listings e inventario, y abre un cupo
+            reducido para probarlas primero.
           </p>
-          <a href="#aplicar" className="btn-gold mt-9">
+          <a href="#aplicar" className="btn-gold mt-10">
             Aplicar al grupo beta →
           </a>
         </header>
