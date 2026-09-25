@@ -333,6 +333,9 @@ function Landing() {
           <div className="panel mx-auto max-w-6xl p-6 sm:p-10">
             <Eyebrow>Aplicación</Eyebrow>
             <h2 className="mt-3 text-2xl sm:text-3xl">Cuéntanos de tu operación</h2>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Todas las preguntas son obligatorias: no se puede enviar con alguna sin responder.
+            </p>
 
             {done ? (
               <div className="mt-8 text-center">
