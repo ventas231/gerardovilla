@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Un grupo cerrado de sellers de Amazon probará antes que nadie herramientas de IA para PPC, listings e inventario. Aplica al grupo beta.",
+          "Un grupo cerrado de sellers de Amazon probará antes que nadie herramientas de IA para la publicidad, las páginas de venta y el inventario. Aplica al grupo beta.",
       },
       {
         property: "og:title",
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Cupo limitado: acceso completo y gratuito durante la fase de prueba a herramientas de IA para PPC, listings e inventario.",
+          "Cupo limitado: acceso completo y gratuito durante la fase de prueba a herramientas de IA para la publicidad, las páginas de venta y el inventario.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/")({
 });
 
 const PRODUCTOS = ["1-3", "4-10", "11-25", "+25"];
-const MARKETPLACES = ["Amazon US", "Amazon MX", "Amazon CA", "Amazon EU", "Otro"];
+const TIENDAS = ["Amazon Estados Unidos", "Amazon México", "Amazon Canadá", "Amazon Europa", "Otro"];
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="eyebrow">{children}</p>;
@@ -208,8 +208,9 @@ function Landing() {
           <p className="mx-auto mt-8 max-w-4xl text-[0.98rem] leading-relaxed text-muted-foreground sm:text-base">
             <span className="font-semibold text-gold">Gerardo Villa</span> vende en Amazon desde
             2019 y acumula más de $4.6M USD en ventas. Está preparando un lanzamiento no público de
-            herramientas de inteligencia artificial para PPC, listings e inventario, y abre un cupo
-            reducido para probarlas primero.
+            herramientas de inteligencia artificial para cuidar la publicidad de tus productos,
+            escribir tus páginas de venta y vigilar tu inventario, y abre un cupo reducido para
+            probarlas primero.
           </p>
           <a href="#aplicar" className="btn-gold mt-10">
             Aplicar al grupo beta →
@@ -241,16 +242,16 @@ function Landing() {
           <div className="mt-7 grid gap-3 lg:grid-cols-2">
             {[
               {
-                t: "Optimización de PPC con IA",
-                d: "Análisis de campañas, pujas y términos de búsqueda con recomendaciones accionables.",
+                t: "Publicidad de tus productos con IA",
+                d: "Revisa tus anuncios de Amazon (lo que llaman PPC) y te dice en qué estás gastando bien y en qué estás tirando el dinero.",
               },
               {
-                t: "Generación y auditoría de listings",
-                d: "Títulos, bullets y backend keywords creados y revisados con IA.",
+                t: "Páginas de venta escritas y revisadas con IA",
+                d: "Títulos, viñetas y palabras clave de tus productos, creados y corregidos por inteligencia artificial.",
               },
               {
-                t: "Seguimiento de inventario con IA",
-                d: "Alertas de quiebre de stock y proyecciones de reorden.",
+                t: "Inventario vigilado con IA",
+                d: "Te avisa antes de quedarte sin producto y te dice cuándo conviene pedir más.",
               },
               {
                 t: "Acceso completo gratis durante la prueba",
@@ -283,7 +284,7 @@ function Landing() {
               <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
                 {[
                   "Vender hoy en Amazon con cuenta activa",
-                  "Tener Claude ya en uso",
+                  "Tener Claude (la aplicación de IA) ya en uso",
                   "Tener Helium 10 activo",
                 ].map((r) => (
                   <li key={r} className="flex gap-3">
@@ -296,7 +297,7 @@ function Landing() {
             <div className="panel p-7">
               <p className="eyebrow">Ayuda a tu caso</p>
               <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-                {["Varios productos activos", "PPC corriendo"].map((r) => (
+                {["Varios productos activos", "Campañas de publicidad activas"].map((r) => (
                   <li key={r} className="flex gap-3">
                     <span className="text-gold/60">◇</span>
                     <span>{r}</span>
@@ -369,7 +370,10 @@ function Landing() {
                       />
                     </Field>
 
-                    <Field label="¿Corres PPC?">
+                    <Field
+                      label="¿Manejas campañas de publicidad?"
+                      hint="Son los anuncios que pagas dentro de Amazon para que tus productos aparezcan más arriba en las búsquedas. A eso le dicen PPC."
+                    >
                       <Choice
                         name="corre_ppc"
                         options={["Sí", "No"]}
@@ -380,7 +384,7 @@ function Landing() {
 
                     {form.corre_ppc === "Sí" && (
                       <div className="grid gap-5 sm:grid-cols-2">
-                        <Field label="¿Cuántas campañas?">
+                        <Field label="¿Cuántas campañas de publicidad tienes?" hint="Los grupos de anuncios que tienes armados.">
                           <input
                             className="field-input"
                             maxLength={60}
@@ -389,7 +393,7 @@ function Landing() {
                             placeholder="Ej. 12"
                           />
                         </Field>
-                        <Field label="¿Cuánto inviertes al mes?">
+                        <Field label="¿Cuánto gastas al mes en publicidad?" hint="El dinero que pagas por los anuncios.">
                           <input
                             className="field-input"
                             maxLength={60}
@@ -401,9 +405,9 @@ function Landing() {
                       </div>
                     )}
 
-                    <Field label="Marketplace(s)" hint="Puedes elegir varios">
+                    <Field label="¿En qué tiendas de Amazon vendes?" hint="Elige todas las que apliquen.">
                       <div className="flex flex-wrap gap-2">
-                        {MARKETPLACES.map((m) => {
+                        {TIENDAS.map((m) => {
                           const active = form.marketplaces.includes(m);
                           return (
                             <button
@@ -424,7 +428,10 @@ function Landing() {
                       </div>
                     </Field>
 
-                    <Field label="¿Tienes Claude y ya lo usas?">
+                    <Field
+                      label="¿Tienes Claude (la aplicación de IA) y ya la usas?"
+                      hint="Es el chat de inteligencia artificial con el que funciona todo esto."
+                    >
                       <Choice
                         name="tiene_claude"
                         options={["Sí, lo uso", "Lo tengo, no lo uso", "No, pero lo contrataría", "No tengo y no estoy dispuesto a contratarlo"]}
