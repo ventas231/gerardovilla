@@ -397,7 +397,7 @@ function Landing() {
                     <Field label="¿Helium 10 activo?">
                       <Choice
                         name="tiene_helium10"
-                        options={["Sí", "No"]}
+                        options={["Sí", "No, pero lo contrataría", "No"]}
                         value={form.tiene_helium10}
                         onChange={(v) => set("tiene_helium10", v)}
                       />
