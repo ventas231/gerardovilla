@@ -89,14 +89,20 @@ export const submitApplication = createServerFn({ method: "POST" })
       },
     });
 
-    const { error } = await supabase.from("beta_applications").insert(data);
+    const id = crypto.randomUUID();
+    const { error } = await supabase.from("beta_applications").insert({ ...data, id });
     if (error) throw new Error(error.message);
 
     try {
-      await notifyByEmail(data);
+      const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
+      await sendTemplateEmail("new-application", "cursos@summaproducts.com", {
+        templateData: data,
+        idempotencyKey: `new-application-${id}`,
+      });
     } catch (err) {
       console.error("Email notification failed", err);
     }
+
 
     return { ok: true };
   });
