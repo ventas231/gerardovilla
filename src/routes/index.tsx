@@ -153,18 +153,38 @@ function Landing() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (noVende) return;
-    if (!form.nombre.trim() || !form.correo.trim() || !form.telefono.trim()) {
-      toast.error("Completa nombre, correo y teléfono.");
+
+    const pendientes: string[] = [];
+    if (!form.nombre.trim()) pendientes.push("Nombre");
+    if (!form.marca.trim()) pendientes.push("Marca");
+    if (!form.vende_amazon) pendientes.push("¿Vendes en Amazon?");
+    if (!form.correo.trim()) pendientes.push("Correo");
+    if (!form.telefono.trim()) pendientes.push("Teléfono / WhatsApp");
+
+    if (!noVende) {
+      if (!form.productos_activos) pendientes.push("¿Cuántos productos tienes activos?");
+      if (!form.corre_ppc) pendientes.push("¿Manejas campañas de publicidad?");
+      if (form.corre_ppc === "Sí") {
+        if (!form.campanas_ppc.trim()) pendientes.push("¿Cuántas campañas tienes?");
+        if (!form.inversion_mensual.trim()) pendientes.push("¿Cuánto gastas al mes?");
+      }
+      if (!form.marketplaces.length) pendientes.push("¿En qué tiendas vendes?");
+      if (!form.tiene_claude) pendientes.push("¿Tienes Claude?");
+      if (!form.tiene_helium10) pendientes.push("¿Helium 10 activo?");
+      if (!form.comparte_resena) pendientes.push("¿Compartirías una reseña?");
+    }
+
+    if (pendientes.length) {
+      const extra = pendientes.length > 1 ? ` y ${pendientes.length - 1} más` : "";
+      toast.error(`Falta responder: ${pendientes[0]}${extra}. Todas son obligatorias.`);
       return;
     }
+
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.correo.trim())) {
       toast.error("Revisa tu correo electrónico.");
       return;
     }
-    if (!form.vende_amazon) {
-      toast.error("Indícanos si vendes en Amazon.");
-      return;
-    }
+
     setSending(true);
     try {
       await send({
@@ -313,6 +333,9 @@ function Landing() {
           <div className="panel mx-auto max-w-6xl p-6 sm:p-10">
             <Eyebrow>Aplicación</Eyebrow>
             <h2 className="mt-3 text-2xl sm:text-3xl">Cuéntanos de tu operación</h2>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Todas las preguntas son obligatorias: no se puede enviar con alguna sin responder.
+            </p>
 
             {done ? (
               <div className="mt-8 text-center">
