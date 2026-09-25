@@ -44,29 +44,20 @@ function Sparkle({ className }: { className?: string }) {
   );
 }
 
-function AmazonMark({ className }: { className?: string }) {
+function AmazonMark({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 120 34" className={className} role="img" aria-label="Amazon">
-      <text
-        x="2"
-        y="19"
-        fontFamily="Manrope, sans-serif"
-        fontSize="21"
-        fontWeight="700"
-        letterSpacing="-0.6"
-        fill="currentColor"
-      >
-        amazon
-      </text>
-      <path
-        d="M6 24.5C26 33 82 33 104 24"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path d="M98 19.5l14 1.5-9.5 8z" fill="currentColor" />
-    </svg>
+    <span className={"inline-flex flex-col items-center leading-none " + className}>
+      <span className="font-sans font-bold tracking-[-0.035em]">amazon</span>
+      <svg viewBox="0 0 100 11" className="mt-[0.1em] w-[105%]" fill="none" aria-hidden="true">
+        <path
+          d="M3 3.4C24 9.6 76 9.6 92 3.4"
+          stroke="currentColor"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+        />
+        <path d="M85 0.4l13 1.8-8.4 7.2z" fill="currentColor" />
+      </svg>
+    </span>
   );
 }
 
@@ -204,12 +195,12 @@ function Landing() {
               Acceso solo por invitación
             </span>
             <span className="hidden h-4 w-px bg-gold/25 sm:block" />
-            <AmazonMark className="h-[15px] w-auto shrink-0 text-foreground/90" />
+            <AmazonMark className="shrink-0 text-[0.85rem] text-foreground/90 sm:text-[1rem]" />
           </div>
 
           <h1 className="mx-auto mt-8 max-w-5xl text-[clamp(1.95rem,8.3vw,5.4rem)] leading-[0.92] uppercase">
-            Un grupo cerrado de sellers va a probar esto{" "}
-            <span className="text-gold-light">antes que nadie</span>
+            Un grupo cerrado de sellers va a probar esto
+            <span className="block text-gold-light">antes que nadie</span>
           </h1>
 
           <div className="gold-rule mx-auto mt-9 w-40 opacity-50" />
