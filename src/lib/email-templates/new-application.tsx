@@ -23,11 +23,11 @@ const FIELDS: [string, string][] = [
 const Email = (props: Props) => (
   <Html lang="es" dir="ltr">
     <Head />
-    <Preview>Nueva aplicación beta de {props.nombre || 'un seller'}</Preview>
+    <Preview>Nueva aplicación beta de {props['nombre'] || 'un seller'}</Preview>
     <Body style={main}>
       <Container style={container}>
         <Text style={eyebrow}>GRUPO BETA · NUEVA APLICACIÓN</Text>
-        <Heading style={h1}>{props.nombre || 'Nueva aplicación'}</Heading>
+        <Heading style={h1}>{props['nombre'] || 'Nueva aplicación'}</Heading>
         <Hr style={hr} />
         {FIELDS.map(([key, label]) => (
           <Section key={key} style={row}>
@@ -43,7 +43,7 @@ const Email = (props: Props) => (
 export const template = {
   component: Email,
   subject: (d: Record<string, any>) =>
-    `Nueva aplicación beta — ${d.nombre || 'Seller'}${d.marca ? ` (${d.marca})` : ''}`,
+    `Nueva aplicación beta — ${d['nombre'] || 'Seller'}${d['marca'] ? ` (${d['marca']})` : ''}`,
   displayName: 'Nueva aplicación beta',
   to: 'cursos@summaproducts.com',
   previewData: {
