@@ -21,56 +21,6 @@ const applicationSchema = z.object({
 
 export type ApplicationInput = z.infer<typeof applicationSchema>;
 
-const LABELS: Record<string, string> = {
-  nombre: "Nombre",
-  marca: "Marca",
-  vende_amazon: "¿Vende en Amazon?",
-  productos_activos: "Productos activos",
-  corre_ppc: "¿Corre PPC?",
-  campanas_ppc: "Campañas PPC",
-  inversion_mensual: "Inversión mensual",
-  marketplaces: "Marketplaces",
-  tiene_claude: "Claude",
-  tiene_helium10: "Helium 10",
-  correo: "Correo",
-  telefono: "Teléfono / WhatsApp",
-  comparte_resena: "¿Compartiría reseña?",
-};
-
-async function notifyByEmail(data: ApplicationInput) {
-  const lovableKey = process.env["LOVABLE_API_KEY"];
-  const resendKey = process.env["RESEND_API_KEY"];
-  if (!lovableKey || !resendKey) return;
-
-  const rows = Object.entries(LABELS)
-    .map(
-      ([key, label]) =>
-        `<tr><td style="padding:6px 12px;border-bottom:1px solid #eee;color:#666;">${label}</td><td style="padding:6px 12px;border-bottom:1px solid #eee;"><strong>${
-          (data as Record<string, string>)[key] || "—"
-        }</strong></td></tr>`,
-    )
-    .join("");
-
-  const res = await fetch("https://connector-gateway.lovable.dev/resend/emails", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${lovableKey}`,
-      "X-Connection-Api-Key": resendKey,
-    },
-    body: JSON.stringify({
-      from: "Aplicaciones Beta <onboarding@resend.dev>",
-      to: ["cursos@summaproducts.com"],
-      subject: `Nueva aplicación beta — ${data.nombre}${data.marca ? ` (${data.marca})` : ""}`,
-      html: `<div style="font-family:Arial,sans-serif;"><h2>Nueva aplicación al grupo beta</h2><table style="border-collapse:collapse;width:100%;max-width:640px;">${rows}</table></div>`,
-    }),
-  });
-
-  if (!res.ok) {
-    console.error(`Resend request failed [${res.status}]: ${await res.text()}`);
-  }
-}
-
 export const submitApplication = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => applicationSchema.parse(data))
   .handler(async ({ data }) => {
