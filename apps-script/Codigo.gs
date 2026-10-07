@@ -1,14 +1,15 @@
 /**
- * Recibe las aplicaciones de la encuesta (encuesta.gerardovilla.mx): guarda cada
- * respuesta en esta hoja de Google Sheets y avisa por correo a cursos@summaproducts.com.
+ * Recibe las aplicaciones de la encuesta (encuesta.gerardovilla.mx) y avisa por
+ * correo a cursos@summaproducts.com con todas las respuestas. Si el script está
+ * dentro de una hoja de Google Sheets, además guarda ahí una copia de cada respuesta.
  * Reemplaza a la base de datos y al correo del servidor anterior.
  *
  * Instalación (una vez):
- * 1. Crear una hoja de Google Sheets nueva ("Respuestas encuesta beta").
- * 2. En esa hoja: Extensiones → Apps Script → pegar este archivo → Guardar.
- * 3. Implementar → Nueva implementación → Aplicación web.
+ * 1. Solo correo: script.google.com → Nuevo proyecto → pegar este archivo → Guardar.
+ *    Correo + copia en hoja: crear la hoja → Extensiones → Apps Script → pegar → Guardar.
+ * 2. Implementar → Nueva implementación → Aplicación web.
  *    Ejecutar como: Yo. Quién tiene acceso: Cualquier usuario.
- * 4. Copiar la URL que termina en /exec y ponerla en src/lib/sheets-config.ts.
+ * 3. Copiar la URL que termina en /exec y ponerla en src/lib/sheets-config.ts.
  */
 const AVISO_A = "cursos@summaproducts.com";
 const CAMPOS = [
@@ -50,12 +51,16 @@ function guardar(body) {
   if (!d.nombre || !d.marca || !d.vende_amazon || !EMAIL_RE.test(d.correo) || d.telefono.length < 6) {
     return { ok: false, error: "invalid" };
   }
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(["Fecha"].concat(CAMPOS.map(([, label]) => label)));
-    sheet.setFrozenRows(1);
+  // Copia en la hoja, solo si el script vive dentro de una hoja de Google Sheets.
+  const libro = SpreadsheetApp.getActiveSpreadsheet();
+  if (libro) {
+    const sheet = libro.getSheets()[0];
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Fecha"].concat(CAMPOS.map(([, label]) => label)));
+      sheet.setFrozenRows(1);
+    }
+    sheet.appendRow([new Date()].concat(CAMPOS.map(([k]) => d[k])));
   }
-  sheet.appendRow([new Date()].concat(CAMPOS.map(([k]) => d[k])));
 
   try {
     const asunto = "Nueva aplicación beta — " + (d.nombre || "Seller") + (d.marca ? " (" + d.marca + ")" : "");
