@@ -1,0 +1,12 @@
+# Prueba temporal: manda UNA aplicación de prueba (correo a cursos@ + fila en la hoja).
+name: Probar script de la encuesta
+on:
+  push:
+    branches: [claude/summaproducts-footer-test-0ebqm8]
+    paths: [.github/workflows/probar-script.yml]
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -sS -L -H 'Content-Type: text/plain;charset=utf-8' --data '{"action":"aplicacion","nombre":"PRUEBA Claude (borrar)","marca":"Prueba","vende_amazon":"Sí","productos_activos":"1-3","corre_ppc":"No","campanas_ppc":"","inversion_mensual":"","marketplaces":"Amazon México","tiene_claude":"Sí, lo uso","tiene_helium10":"Sí","correo":"prueba-claude@summaproducts.com","telefono":"+52 0000000000","comparte_resena":"Sí"}' "https://script.google.com/macros/s/AKfycbyXZNJ3JdACUn3tOkZJ8bXCMkuIs44sQZNM30tGBKGY8Z_pxj6okbFBlj6WOr-47v24/exec" -w "\nHTTP %{http_code}\n"
