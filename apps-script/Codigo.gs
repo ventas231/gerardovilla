@@ -77,6 +77,8 @@ function guardar(body) {
     });
   } catch (err) {
     console.error("Aviso por correo falló", err);
+    // Sin hoja, el correo es el único registro: si falla, se avisa al visitante.
+    if (!libro) return { ok: false, error: "email_failed" };
   }
   return { ok: true };
 }
