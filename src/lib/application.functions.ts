@@ -1,7 +1,6 @@
-import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import type { Database } from "@/integrations/supabase/types";
+
+import { SHEETS_WEBAPP_URL } from "./sheets-config";
 
 const applicationSchema = z
   .object({
@@ -61,38 +60,18 @@ const applicationSchema = z
 
 export type ApplicationInput = z.infer<typeof applicationSchema>;
 
-export const submitApplication = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => applicationSchema.parse(data))
-  .handler(async ({ data }) => {
-    const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
-    const supabase = createClient<Database>(process.env["SUPABASE_URL"]!, key, {
-      auth: { persistSession: false, autoRefreshToken: false },
-      global: {
-        fetch: (input, init) => {
-          const h = new Headers(init?.headers);
-          if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) {
-            h.delete("Authorization");
-          }
-          h.set("apikey", key);
-          return fetch(input, { ...init, headers: h });
-        },
-      },
-    });
-
-    const id = crypto.randomUUID();
-    const { error } = await supabase.from("beta_applications").insert({ ...data, id });
-    if (error) throw new Error(error.message);
-
-    try {
-      const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
-      await sendTemplateEmail("new-application", "cursos@summaproducts.com", {
-        templateData: data,
-        idempotencyKey: `new-application-${id}`,
-      });
-    } catch (err) {
-      console.error("Email notification failed", err);
-    }
-
-
-    return { ok: true };
+// Envía la aplicación a Google Apps Script (apps-script/Codigo.gs), que la guarda
+// en Google Sheets y avisa por correo. Se llama desde el navegador: el sitio es estático.
+export async function submitApplication({ data }: { data: unknown }) {
+  const parsed = applicationSchema.parse(data);
+  if (!SHEETS_WEBAPP_URL) throw new Error("SHEETS_WEBAPP_URL no configurada");
+  // text/plain evita la petición previa de CORS que Apps Script no responde.
+  const res = await fetch(SHEETS_WEBAPP_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({ action: "aplicacion", ...parsed }),
   });
+  const result = (await res.json()) as { ok: boolean; error?: string };
+  if (!result.ok) throw new Error(result.error || "No se pudo guardar");
+  return { ok: true };
+}

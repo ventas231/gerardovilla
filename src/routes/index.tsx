@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
 import { submitApplication } from "@/lib/application.functions";
@@ -132,7 +131,7 @@ const emptyForm = {
 };
 
 function Landing() {
-  const send = useServerFn(submitApplication);
+  const send = submitApplication;
   const [form, setForm] = useState(emptyForm);
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
